@@ -13,7 +13,7 @@ const path = require('path');
 app.use(fileUpload());
 
 
-app.put('/upload/:tipo/:id', function(req, res) {
+app.put('/upload/:tipo/:id', (req, res) => {
 
     let tipo = req.params.tipo;
     let id = req.params.id;
@@ -177,6 +177,7 @@ function imagenProducto(id, res, nombreArchivo) {
 function borraArchivo(nombreImagen, tipo) {
 
     let pathImagen = path.resolve(__dirname, `../../uploads/${ tipo }/${ nombreImagen }`);
+    console.log(pathImagen);
     if (fs.existsSync(pathImagen)) {
         fs.unlinkSync(pathImagen);
     }
