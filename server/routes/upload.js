@@ -66,17 +66,8 @@ app.put('/upload/:tipo/:id', (req, res) => {
     //Cambiar nombre del archivo 
     let nombreArchivo = `${id}-${ new Date().getMilliseconds()}.${extension}`;
 
-    let pathGuardar = `uploads/${tipo}/${nombreArchivo}`;
-    // validar si tenemos los directorios creados
-
-    if (!fs.existsSync(path.resolve(`uploads`))) {
-        crearDirectorio();
-    }
-    if (!fs.existsSync(path.resolve(`uploads/${ tipo }`))) {
-        crearDirectorio(tipo);
-    };
     //Ruta donde se subiran los archivos enviados desde postman
-    archivo.mv(pathGuardar, (err) => {
+    archivo.mv(`uploads/${tipo}/${nombreArchivo}`, (err) => {
 
         if (err) {
             return res.status(500).json({
@@ -177,43 +168,5 @@ function borrarArchivo(nombreImagen, tipo) {
     if (fs.existsSync(pathImagen)) {
         fs.unlinkSync(pathImagen);
     }
-};
-
-function crearDirectorio(tipo) {
-
-    switch (tipo) {
-        case 'usuarios':
-            fs.mkdir(`uploads/${ tipo }`, err => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('Directory Created');
-                }
-            });
-            break;
-
-        case 'productos':
-            fs.mkdir(`uploads/${ tipo }`, err => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('Directory Created');
-                }
-            });
-            break;
-
-        default:
-
-            fs.mkdir('uploads', err => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('Directory Created');
-                }
-            });
-
-            break;
-    }
-
-};
+}
 module.exports = app;
