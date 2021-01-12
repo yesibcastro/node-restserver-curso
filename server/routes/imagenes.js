@@ -11,7 +11,7 @@ app.get('/imagen/:tipo/:img', verificaTokenImg, (req, res) => {
 
     //cada argumento del resolve son segmentos del path que se quiere construir
     let pathImagen = path.resolve(__dirname, `../../uploads/${tipo}/${img}`);
-
+    console.log(pathImagen);
     if (fs.existsSync(pathImagen)) {
         res.sendFile(pathImagen);
     } else {
