@@ -11,7 +11,7 @@ const app = express();
 app.post('/login', (req, res) => {
 
     let body = req.body;
-
+    console.log(body.email);
     Usuario.findOne({ email: body.email }, (err, usuarioDB) => {
 
         if (err) {
@@ -84,6 +84,7 @@ app.post('/google', async(req, res) => {
                 err: e
             });
         });
+    console.log(googleUser.email);
 
     Usuario.findOne({ email: googleUser.email }, (err, usuarioDB) => {
 
